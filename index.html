@@ -1,56 +1,740 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Winsen & Chaini</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f8eef0" />
+  <title>Winsen & Chaini — Wedding Invitation</title>
 
   <style>
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      background: #ffffff;
+    :root {
+      --bg: #f8eef0;
+      --paper: rgba(255,255,255,.72);
+      --text: #5d4b50;
+      --muted: #8a747a;
+      --accent: #b98d98;
+      --accent-dark: #8f6873;
+      --line: rgba(143,104,115,.22);
+      --max: 480px;
     }
 
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
     body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--text);
+      background: var(--bg);
       overflow-x: hidden;
     }
 
-    .page {
-      width: 100%;
-      margin: 0;
-      padding: 0;
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        linear-gradient(rgba(248,238,240,.70), rgba(248,238,240,.82)),
+        url("background.jpg") center/cover no-repeat;
     }
 
-    .page img {
-      display: block;
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: radial-gradient(circle at center, transparent 35%, rgba(80,50,60,.08) 100%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page {
       width: 100%;
-      height: auto;
-      margin: 0;
-      padding: 0;
+      max-width: var(--max);
+      margin: auto;
+      overflow: hidden;
+    }
+
+    section {
+      min-height: 100vh;
+      padding: 72px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .content {
+      width: 100%;
+      text-align: center;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      font-size: clamp(46px, 13vw, 72px);
+      font-weight: 400;
+      line-height: .95;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      font-size: 34px;
+      font-weight: 400;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 22px;
+      font-weight: 400;
+    }
+
+    p {
+      line-height: 1.8;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .amp {
+      font-style: italic;
+      font-size: .55em;
+      color: var(--accent-dark);
+    }
+
+    .date {
+      font-size: 15px;
+      letter-spacing: 3px;
+      margin: 18px 0 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 170px;
+      padding: 13px 22px;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      background: rgba(255,255,255,.38);
+      color: var(--accent-dark);
+      font-family: inherit;
+      font-size: 12px;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .btn:hover {
+      background: rgba(255,255,255,.75);
+      transform: translateY(-2px);
+    }
+
+    .ornament {
+      margin: 22px auto;
+      width: 90px;
+      height: 1px;
+      background: var(--line);
+      position: relative;
+    }
+
+    .ornament::after {
+      content: "✦";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+      background: var(--bg);
+      padding: 0 9px;
+      color: var(--accent);
+      font-size: 12px;
+    }
+
+    .card {
+      width: 100%;
+      padding: 30px 22px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--paper);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .hero {
+      min-height: 100svh;
+    }
+
+    .hero .content {
+      padding-top: 10vh;
+    }
+
+    .scroll {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: var(--muted);
+    }
+
+    .scroll::after {
+      content: "↓";
+      display: block;
+      margin-top: 8px;
+      font-size: 17px;
+    }
+
+    .quote {
+      font-style: italic;
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--text);
+    }
+
+    .quote-ref {
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-top: 18px;
+    }
+
+    .couple-photo {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border-radius: 180px 180px 24px 24px;
+      display: block;
+      margin-bottom: 28px;
+      background: rgba(255,255,255,.35);
+      border: 1px solid var(--line);
+    }
+
+    .date-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 10px;
+      margin: 25px 0;
+    }
+
+    .date-box {
+      padding: 16px 8px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.3);
+    }
+
+    .date-box strong {
+      display: block;
+      font-size: 25px;
+      font-weight: 400;
+    }
+
+    .date-box span {
+      display: block;
+      font-size: 9px;
+      letter-spacing: 2px;
+      margin-top: 5px;
+      color: var(--muted);
+    }
+
+    .event {
+      padding: 24px 8px;
+      border-top: 1px solid var(--line);
+    }
+
+    .event:last-child { border-bottom: 1px solid var(--line); }
+
+    .event-time {
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--accent-dark);
+      margin-bottom: 8px;
+    }
+
+    .event-place {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .gallery img {
+      width: 100%;
+      aspect-ratio: 1 / 1.25;
+      object-fit: cover;
+      border-radius: 14px;
+      background: rgba(255,255,255,.35);
+    }
+
+    .gallery img:first-child {
+      grid-column: span 2;
+      aspect-ratio: 16 / 10;
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 1px;
+      margin-bottom: 7px;
+      color: var(--muted);
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,.5);
+      color: var(--text);
+      font-family: inherit;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .account {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      margin-bottom: 12px;
+      background: rgba(255,255,255,.3);
+    }
+
+    .account-name {
+      font-size: 13px;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .account-number {
+      font-size: 20px;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+
+    .copy-btn {
+      border: 1px solid var(--accent);
+      background: transparent;
+      color: var(--accent-dark);
+      border-radius: 999px;
+      padding: 7px 15px;
+      font-family: inherit;
+      font-size: 10px;
+      letter-spacing: 1px;
+      cursor: pointer;
+    }
+
+    footer {
+      padding: 70px 24px 90px;
+      text-align: center;
+    }
+
+    .music {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 10;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--accent);
+      background: rgba(255,255,255,.7);
+      color: var(--accent-dark);
+      cursor: pointer;
+      font-size: 16px;
+      box-shadow: 0 5px 20px rgba(80,50,60,.12);
+    }
+
+    .fade {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .fade.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 700px) {
+      body { background: #eee4e7; }
+      .page {
+        box-shadow: 0 0 60px rgba(60,40,50,.12);
+      }
     }
   </style>
 </head>
 
 <body>
+  <main class="page">
 
-  <div class="page">
-    <img src="https://i.imgur.com/nilSAjw.png" alt="Wedding Invitation">
-  </div>
+    <!-- COVER -->
+    <section class="hero" id="home">
+      <div class="content fade">
+        <div class="eyebrow">The Wedding of</div>
+        <h1>Winsen <span class="amp">&amp;</span><br>Chaini</h1>
+        <div class="ornament"></div>
+        <div class="date">17 · 10 · 2026</div>
+        <p>With joyful hearts, we invite you<br>to celebrate our wedding day.</p>
+        <br>
+        <a href="#invitation" class="btn">OPEN INVITATION</a>
+      </div>
+      <div class="scroll">SCROLL</div>
+    </section>
 
-  <div class="page">
-    <img src="https://i.imgur.com/kdnyBGp.jpeg" alt="Wedding Invitation">
-  </div>
+    <!-- QUOTE -->
+    <section id="invitation">
+      <div class="content fade">
+        <div class="card">
+          <div class="eyebrow">A little blessing</div>
+          <div class="quote">
+            “Above all, clothe yourselves with love,
+            which binds us all together in perfect harmony.”
+          </div>
+          <div class="quote-ref">Colossians 3:14</div>
+        </div>
+      </div>
+    </section>
 
-  <div class="page">
-    <img src="https://i.imgur.com/3z4QUzD.png" alt="Wedding Invitation">
-  </div>
+    <!-- COUPLE -->
+    <section>
+      <div class="content fade">
+        <div class="eyebrow">Together with our families</div>
 
-  <div class="page">
-    <img src="https://i.imgur.com/u5nOgf6.png" alt="Wedding Invitation">
-  </div>
+        <!-- Ganti couple.jpg dengan foto kalian -->
+        <img class="couple-photo" src="couple.jpg" alt="Winsen & Chaini">
 
+        <h2>Winsen &amp; Chaini</h2>
+        <p>
+          Two hearts, two stories, one beautiful journey.
+          We are grateful to have found each other and
+          excited to begin this new chapter together.
+        </p>
+      </div>
+    </section>
+
+    <!-- COUNTDOWN -->
+    <section>
+      <div class="content fade">
+        <div class="eyebrow">Save the date</div>
+        <h2>Our Wedding Day</h2>
+        <div class="ornament"></div>
+
+        <div class="date-grid">
+          <div class="date-box">
+            <strong id="days">--</strong>
+            <span>DAYS</span>
+          </div>
+          <div class="date-box">
+            <strong id="hours">--</strong>
+            <span>HOURS</span>
+          </div>
+          <div class="date-box">
+            <strong id="minutes">--</strong>
+            <span>MINUTES</span>
+          </div>
+        </div>
+
+        <p>Saturday, 17 October 2026</p>
+      </div>
+    </section>
+
+    <!-- WEDDING DAY -->
+    <section>
+      <div class="content fade">
+        <div class="eyebrow">Wedding details</div>
+        <h2>Wedding Day</h2>
+
+        <div class="card">
+          <div class="event">
+            <div class="event-time">HOLY MATRIMONY</div>
+            <h3>Wedding Ceremony</h3>
+            <div class="event-place">
+              10:00 AM<br>
+              Church Name<br>
+              Singkawang, West Kalimantan
+            </div>
+          </div>
+
+          <div class="event">
+            <div class="event-time">CELEBRATION</div>
+            <h3>Wedding Reception</h3>
+            <div class="event-place">
+              18:00 PM<br>
+              Reception Venue<br>
+              Singkawang, West Kalimantan
+            </div>
+          </div>
+
+          <br>
+          <a class="btn" href="https://maps.google.com" target="_blank">
+            VIEW LOCATION
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section>
+      <div class="content fade">
+        <div class="eyebrow">Our memories</div>
+        <h2>Gallery</h2>
+        <div class="ornament"></div>
+
+        <!-- Ganti nama file sesuai foto kalian -->
+        <div class="gallery">
+          <img src="photo1.jpg" alt="Our memory">
+          <img src="photo2.jpg" alt="Our memory">
+          <img src="photo3.jpg" alt="Our memory">
+          <img src="photo4.jpg" alt="Our memory">
+          <img src="photo5.jpg" alt="Our memory">
+        </div>
+      </div>
+    </section>
+
+    <!-- RSVP -->
+    <section id="rsvp">
+      <div class="content fade">
+        <div class="eyebrow">Kindly respond</div>
+        <h2>RSVP</h2>
+        <p>Please let us know if you will be joining us.</p>
+
+        <div class="card">
+          <form onsubmit="sendRSVP(event)">
+            <div class="form-group">
+              <label>YOUR NAME</label>
+              <input id="rsvpName" type="text" placeholder="Your name" required>
+            </div>
+
+            <div class="form-group">
+              <label>ATTENDANCE</label>
+              <select id="rsvpAttendance" required>
+                <option value="">Please select</option>
+                <option value="Yes, I will attend">Yes, I will attend</option>
+                <option value="Sorry, I can't attend">Sorry, I can't attend</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>NUMBER OF GUESTS</label>
+              <select id="rsvpGuests">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+              </select>
+            </div>
+
+            <button class="btn" type="submit">SEND RSVP</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- WISHES -->
+    <section>
+      <div class="content fade">
+        <div class="eyebrow">Leave a message</div>
+        <h2>Wishes</h2>
+        <p>Share your love and prayers for our new beginning.</p>
+
+        <div class="card">
+          <form onsubmit="sendWish(event)">
+            <div class="form-group">
+              <label>YOUR NAME</label>
+              <input id="wishName" type="text" placeholder="Your name" required>
+            </div>
+
+            <div class="form-group">
+              <label>YOUR WISH</label>
+              <textarea id="wishMessage" placeholder="Write your wishes..." required></textarea>
+            </div>
+
+            <button class="btn" type="submit">SEND WISH</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOVE GIFT -->
+    <section>
+      <div class="content fade">
+        <div class="eyebrow">Love gift</div>
+        <h2>Your presence is enough</h2>
+        <p>
+          But if you wish to bless us with a gift,
+          you may use the details below.
+        </p>
+
+        <div class="card">
+          <div class="account">
+            <div class="account-name">BANK NAME</div>
+            <div class="account-number" id="account1">1234567890</div>
+            <div class="account-name">WINSEN CHAIRUL</div>
+            <br>
+            <button class="copy-btn" onclick="copyAccount('account1')">COPY ACCOUNT</button>
+          </div>
+
+          <div class="account">
+            <div class="account-name">BANK NAME</div>
+            <div class="account-number" id="account2">0987654321</div>
+            <div class="account-name">CHAINI</div>
+            <br>
+            <button class="copy-btn" onclick="copyAccount('account2')">COPY ACCOUNT</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLOSING -->
+    <section>
+      <div class="content fade">
+        <div class="eyebrow">Until we say I do</div>
+        <h2>Thank You</h2>
+        <div class="ornament"></div>
+        <p>
+          We cannot wait to celebrate this special day
+          with the people we love.
+        </p>
+        <br>
+        <h3>Winsen &amp; Chaini</h3>
+        <p>17 · 10 · 2026</p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="eyebrow">Made with love</div>
+      <small>Winsen &amp; Chaini · 2026</small>
+    </footer>
+
+  </main>
+
+  <!-- MUSIC -->
+  <!-- Ganti music.mp3 dengan file musik kalian -->
+  <audio id="music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+  <button class="music" id="musicBtn" onclick="toggleMusic()" aria-label="Music">♫</button>
+
+  <script>
+    // COUNTDOWN
+    const weddingDate = new Date("October 17, 2026 10:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = weddingDate - now;
+
+      if (distance <= 0) {
+        document.getElementById("days").textContent = "0";
+        document.getElementById("hours").textContent = "0";
+        document.getElementById("minutes").textContent = "0";
+        return;
+      }
+
+      document.getElementById("days").textContent =
+        Math.floor(distance / (1000 * 60 * 60 * 24));
+
+      document.getElementById("hours").textContent =
+        Math.floor((distance / (1000 * 60 * 60)) % 24);
+
+      document.getElementById("minutes").textContent =
+        Math.floor((distance / (1000 * 60)) % 60);
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // SCROLL ANIMATION
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".fade").forEach(el => observer.observe(el));
+
+    // MUSIC
+    const music = document.getElementById("music");
+    const musicBtn = document.getElementById("musicBtn");
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+        musicBtn.textContent = "❚❚";
+      } else {
+        music.pause();
+        musicBtn.textContent = "♫";
+      }
+    }
+
+    // RSVP
+    function sendRSVP(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("rsvpName").value;
+      const attendance = document.getElementById("rsvpAttendance").value;
+      const guests = document.getElementById("rsvpGuests").value;
+
+      const text =
+        `Hello Winsen & Chaini,%0A%0A` +
+        `RSVP%0A` +
+        `Name: ${name}%0A` +
+        `Attendance: ${attendance}%0A` +
+        `Guests: ${guests}`;
+
+      // GANTI 628XXXXXXXXXX dengan nomor WhatsApp kalian
+      window.open(`https://wa.me/628XXXXXXXXXX?text=${text}`, "_blank");
+    }
+
+    // WISHES
+    function sendWish(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("wishName").value;
+      const message = document.getElementById("wishMessage").value;
+
+      const text =
+        `Hello Winsen & Chaini,%0A%0A` +
+        `Wedding Wishes%0A` +
+        `From: ${name}%0A` +
+        `Message: ${message}`;
+
+      // GANTI 628XXXXXXXXXX dengan nomor WhatsApp kalian
+      window.open(`https://wa.me/628XXXXXXXXXX?text=${text}`, "_blank");
+    }
+
+    // COPY BANK ACCOUNT
+    function copyAccount(id) {
+      const number = document.getElementById(id).textContent.trim();
+      navigator.clipboard.writeText(number).then(() => {
+        alert("Account number copied!");
+      });
+    }
+  </script>
 </body>
 </html>
